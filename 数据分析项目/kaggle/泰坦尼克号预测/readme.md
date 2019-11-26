@@ -114,6 +114,21 @@ sum(Embarked is NULL) as Embarked from titanic;  ```
          ![image](https://github.com/slackliu/data_analysis/blob/master/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E9%A1%B9%E7%9B%AE/kaggle/%E6%B3%B0%E5%9D%A6%E5%B0%BC%E5%85%8B%E5%8F%B7%E9%A2%84%E6%B5%8B/images/Fare%E5%88%86%E5%B8%83%E7%AE%B1%E7%BA%BF%E5%9B%BE.png)
          由此得知其中位数为12,将Fare缺失的值补充为12.  
       3. 补充Age缺失值  
+      ``` SQL select count(*) from Titanic where age is null;```  
+      由于Age缺失值较多，需要通过其他的变量来预测，暂时不进行缺失值的填补，先进行特征抽取。
          
-         
+4.  数据计算  
+    从以下几点分析问题  
+    1. 船舱等级与幸存率之间的关系  
+    2. 乘客社会等级越高,幸存率越高  
+    3. 未成年幸存率高于成年人  
+    4. 女性幸存率高于男性  
+    5. 配偶数适中的乘客幸存率更高  
+    6. 父母与子女数为1到3的乘客幸存率更高  
+    7. 共票号乘客幸存率更高  
+    8. 票价高的乘客幸存率更高  
+    9. 不同船舱的幸存率不同  
+    10. 登船港口为c的乘客幸存率高  
+    11. 不同title与幸存率之间的关系  
+    
 
