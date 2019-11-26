@@ -44,3 +44,13 @@
     - Fare：船票价格  
     - Cabin：舱号 
     - Embarked：登船口岸  
+3. 数据清洗  
+    3.1. 缺失值处理  
+        3.1.1. 查看缺失值  
+            SELECT sum(PassengerId is NULL) as PassengerId, sum(Survived is NULL) as Survived,
+sum(Pclass is NULL) as Pclass,sum(Name is NULL) as Name,sum(Sex is NULL) as Sex,
+sum(Age is NULL) as Age,sum(SibSp is NULL) as SibSp,sum(Parch is NULL) as Parch,
+sum(Ticket is NULL) as Ticket,sum(Fare is NULL) as Fare,sum(Cabin is NULL) as Cabin,
+sum(Embarked is NULL) as Embarked from titanic;    
+            ![image]()
+
