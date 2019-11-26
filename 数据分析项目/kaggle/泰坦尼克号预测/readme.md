@@ -64,7 +64,7 @@ sum(Embarked is NULL) as Embarked from titanic;
             SELECT * from titanic WHERE Embarked = 'c' and Pclass = 1;
             SELECT * from titanic WHERE Embarked = 's' and Pclass = 1;
             SELECT * from titanic WHERE Embarked = 'q' and Pclass = 1;
-            画箱型图的代码为:  
+            画箱型图的代码为:    
             '''python
             import numpy as np
             import pandas as pd
@@ -80,7 +80,7 @@ sum(Embarked is NULL) as Embarked from titanic;
             plt.yticks(range(0, 600)[::20])
             plt.title('Box Plot of Fare', fontsize=22)
             plt.show()
-            '''  
+            '''    
             得到箱型图:  
             ![image](https://github.com/slackliu/data_analysis/blob/master/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E9%A1%B9%E7%9B%AE/kaggle/%E6%B3%B0%E5%9D%A6%E5%B0%BC%E5%85%8B%E5%8F%B7%E9%A2%84%E6%B5%8B/images/Fare%E7%AE%B1%E5%9E%8B%E5%9B%BE.png)  
             * 由此可以得出Pclass为1,登船港口为C的中位数为80,因此我们将Embarked缺失的值补充为C  
