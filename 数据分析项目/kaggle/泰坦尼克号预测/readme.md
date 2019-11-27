@@ -28,6 +28,9 @@
 
 6. 提交预测结果 
 
+</br>
+
+
 ### 二、步骤处理 
 1. **导入数据**   
     将train.csv的数据.直接导入到数据库,并再导入test.csv中的数据,将数据合并,有利于预测  
@@ -47,14 +50,12 @@
     
 </br>
 
-
 3. **数据清洗**  
 
 </br>
 
-
-3.1. **缺失值处理**     
-3.1.1. 查看缺失值      
+    3.1. **缺失值处理**     
+        3.1.1. 查看缺失值      
     ``` SQL SELECT sum(PassengerId is NULL) as PassengerId, sum(Survived is NULL) as Survived,
 sum(Pclass is NULL) as Pclass,sum(Name is NULL) as Name,sum(Sex is NULL) as Sex,
 sum(Age is NULL) as Age,sum(SibSp is NULL) as SibSp,sum(Parch is NULL) as Parch,
