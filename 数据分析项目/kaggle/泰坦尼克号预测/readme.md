@@ -29,9 +29,9 @@
 6. 提交预测结果 
 
 ### 二、步骤处理 
-1. 导入数据  
+1. **导入数据**   
     将train.csv的数据.直接导入到数据库,并再导入test.csv中的数据,将数据合并,有利于预测  
-2. 理解数据  
+2. **理解数据**  
     - PassengerId: 乘客的ID，对预测没有用处  
     - Survived：1代表幸存，0代表遇难， 
     - Pclass：船票等级,可代表乘客的社会经济状况：1代表Upper，2代表Middle，3代表Lower  
@@ -44,10 +44,18 @@
     - Fare：船票价格  
     - Cabin：舱号 
     - Embarked：登船口岸  
-3. 数据清洗  
-3.1. 缺失值处理     
-        3.1.1. 查看缺失值      
-            ``` SQL SELECT sum(PassengerId is NULL) as PassengerId, sum(Survived is NULL) as Survived,
+    
+</br>
+
+
+3. **数据清洗**  
+
+</br>
+
+
+3.1. **缺失值处理**     
+3.1.1. 查看缺失值      
+    ``` SQL SELECT sum(PassengerId is NULL) as PassengerId, sum(Survived is NULL) as Survived,
 sum(Pclass is NULL) as Pclass,sum(Name is NULL) as Name,sum(Sex is NULL) as Sex,
 sum(Age is NULL) as Age,sum(SibSp is NULL) as SibSp,sum(Parch is NULL) as Parch,
 sum(Ticket is NULL) as Ticket,sum(Fare is NULL) as Fare,sum(Cabin is NULL) as Cabin,
@@ -56,6 +64,10 @@ sum(Embarked is NULL) as Embarked from titanic;  ```
 ![image](https://github.com/slackliu/data_analysis/blob/master/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E9%A1%B9%E7%9B%AE/kaggle/%E6%B3%B0%E5%9D%A6%E5%B0%BC%E5%85%8B%E5%8F%B7%E9%A2%84%E6%B5%8B/images/sql_chaxunqueshizhi.png)  
             
 发现survived有418个缺失值,age有263个缺失值,Fare有1个缺失值,cabin有1014个缺失值,  
+
+</br>
+
+
 3.1.2. 补充缺失值  
             1. Embarked有2个缺失值,查看其具体情况.  
                ``` SQL  SELECT * from titanic WHERE Embarked is NULL;```  
@@ -116,7 +128,7 @@ sum(Embarked is NULL) as Embarked from titanic;  ```
       ``` SQL select count(*) from Titanic where age is null;```  
       由于Age缺失值较多，需要通过其他的变量来预测，暂时不进行缺失值的填补，先进行特征抽取。
          
-4. 数据计算  
+4. **数据计算**  
     从以下几点分析问题:   
     1. 船舱等级与幸存率之间的关系   
     2. 女性幸存率高于男性  
