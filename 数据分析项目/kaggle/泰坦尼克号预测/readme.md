@@ -53,13 +53,13 @@
 3. **数据清洗**  
     3.1. 缺失值处理     
     - 查看缺失值      
-    ``` SQL 
+``` SQL 
 SELECT sum(PassengerId is NULL) as PassengerId, sum(Survived is NULL) as Survived,
 sum(Pclass is NULL) as Pclass,sum(Name is NULL) as Name,sum(Sex is NULL) as Sex,
 sum(Age is NULL) as Age,sum(SibSp is NULL) as SibSp,sum(Parch is NULL) as Parch,
 sum(Ticket is NULL) as Ticket,sum(Fare is NULL) as Fare,sum(Cabin is NULL) as Cabin,
 sum(Embarked is NULL) as Embarked from titanic;  
-        ```  
+```  
 
   查询结果:发现survived有418个缺失值,age有263个缺失值,Fare有1个缺失值,cabin有1014个缺失值,  
 ![image](https://github.com/slackliu/data_analysis/blob/master/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E9%A1%B9%E7%9B%AE/kaggle/%E6%B3%B0%E5%9D%A6%E5%B0%BC%E5%85%8B%E5%8F%B7%E9%A2%84%E6%B5%8B/images/sql_chaxunqueshizhi.png)  
