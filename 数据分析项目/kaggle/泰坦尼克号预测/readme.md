@@ -102,8 +102,8 @@ plt.show() //python
 
 ![image](https://github.com/slackliu/data_analysis/blob/master/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E9%A1%B9%E7%9B%AE/kaggle/%E6%B3%B0%E5%9D%A6%E5%B0%BC%E5%85%8B%E5%8F%B7%E9%A2%84%E6%B5%8B/images/Fare%E7%AE%B1%E5%9E%8B%E5%9B%BE.png)  
 
-    - 由此可以得出Pclass为1,登船港口为C的中位数为80,因此我们将Embarked缺失的值补充为C   
-      2. Fare缺失值只有一个,查看具体情况  
+  - 由此可以得出Pclass为1,登船港口为C的中位数为80,因此我们将Embarked缺失的值补充为C   
+     2. Fare缺失值只有一个,查看具体情况  
 ``` SQL 
 select * from titanic where Fare is null;  
 ```
