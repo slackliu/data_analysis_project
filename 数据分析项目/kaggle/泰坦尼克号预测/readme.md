@@ -182,3 +182,88 @@ C港口幸存率较高
 票价越高幸存率越高,甚至高于300的幸存率为100%.  
 
 
+### 三.特征选择
+本特征采用相关系数法对特征进行选择
+``` python
+#相关系数矩阵
+import pandas as pd
+import warnings
+warnings.filterwarnings('ignore')
+df = pd.read_csv(r"C:\Users\admin\Desktop\titanic_1.csv")
+corrdf = df.corr()
+```
+由于是预测生存情况，因此根据各个特征与生存情况（Survived）的相关系数大小，选择特征进行模型构建。
+
+``` python
+#查看各个特征与生存情况（Survived）的相关系数，并降序排列
+corrDf['Survived'].sort_values(ascending=False)
+```
+结果为:  
+![image](https://github.com/slackliu/data_analysis/blob/master/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E9%A1%B9%E7%9B%AE/kaggle/%E6%B3%B0%E5%9D%A6%E5%B0%BC%E5%85%8B%E5%8F%B7%E9%A2%84%E6%B5%8B/images/%E5%BD%B1%E5%93%8D%E5%9B%A0%E5%AD%90.png)
+根据各个特征与生存情况（Survived）的相关系数大小，选择以下某些特征作为模型的输入:  
+头衔,性别,票价,船舱等级,SibSp,Parch等
+``` python
+#特征选择  
+df_x = pd.concat([df['Pclass'],df['adult'],  df['younger'],  df['Price_middle'], df['Price_high'],  df['Price_low'], df['male'],  df['female'],  df['SibSp'], df['Embarked_C'], df['Embarked_Q'], df['Embarked_S'], df['Fare'], df['Cabin_B'], df['Cabin_D'], df['Cabin_E'], df['Cabin_C'], df['Cabin_F'], df['Cabin_A'], df['Cabin_G'], df[' Mrs'], df[' Miss'], df[' Master'], df['Mr']], axis=1)
+#查看特征
+print(df_x.head())  
+```
+![image](https://github.com/slackliu/data_analysis/blob/master/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E9%A1%B9%E7%9B%AE/kaggle/%E6%B3%B0%E5%9D%A6%E5%B0%BC%E5%85%8B%E5%8F%B7%E9%A2%84%E6%B5%8B/images/%E7%89%B9%E5%BE%81%E5%9B%BE%E7%89%87.png)
+
+泰坦尼克号测试数据集因为是最后要提交到kaggle的，里面没有生存情况的值，因此不能用于模型评估
+将kaggle泰坦尼克号项目中的测试数据叫做预测数据集（记为pred）
+即使用机器学习模型来对其生存情况进行预测
+使用kaggle泰坦尼克号项目给的训练数据集，作为原始数据集（记为source）
+从这个原始数据集中拆分出训练数据集（记为train，用于模型训练）和测试数据集（记为test，用于模型评估）
+``` python
+#在合并数据前就知道，原始数据集共有891行
+sourcerow = 891
+#原始数据集：特征
+source_x = df_x.loc[0:sourcerow-1, :]
+#原始数据集：标签
+source_y = df.loc[0:sourcerow-1, 'Survived']
+#预测数据集：特征
+pred_x = df_x.loc[sourcerow:, :]
+print(source_x.shape[0])
+print(pred_x.shape[0])
+
+#建立模型用的训练数据集和测试数据集
+from sklearn.model_selection import train_test_split
+train_x, test_x, train_y, test_y = train_test_split(source_x,
+                                                    source_y,
+                                                    train_size=0.8)
+#输出数据集大小
+print(source_x.shape,
+      train_x.shape,
+      test_x.shape)
+
+print(source_y.shape,
+      train_y.shape,
+      test_y.shape)
+
+
+
+
+from sklearn.linear_model import LogisticRegression
+#创建模型—逻辑回归
+model = LogisticRegression()
+#第三步：训练模型
+model.fit(train_x, train_y)
+#分类问题，score得到的是模型的正确率
+e = model.score(test_x, test_y)
+print(e)
+#使用机器学习模型，对预测数据集中的生存情况进行预测
+pred_y = model.predict(pred_x)
+#进行预测结果的数据类型转换
+pred_y = pred_y.astype(int)
+#创建数据框，使得乘客ID与生存情况对应：乘客ID，预测生存情况的值
+passenger_id = df.loc[sourcerow:, 'PassengerId']
+predDf = pd.DataFrame({'PassengerId': passenger_id,
+                       'Survived': pred_y})
+print(predDf.head())
+
+predDf.to_csv('titanic_pred.csv', index=False)
+```
+结果为:
+![image](https://github.com/slackliu/data_analysis/blob/master/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E9%A1%B9%E7%9B%AE/kaggle/%E6%B3%B0%E5%9D%A6%E5%B0%BC%E5%85%8B%E5%8F%B7%E9%A2%84%E6%B5%8B/images/%E7%BB%93%E6%9E%9C.png)
+
