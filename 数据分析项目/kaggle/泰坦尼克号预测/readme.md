@@ -241,9 +241,6 @@ print(source_y.shape,
       train_y.shape,
       test_y.shape)
 
-
-
-
 from sklearn.linear_model import LogisticRegression
 #创建模型—逻辑回归
 model = LogisticRegression()
@@ -267,3 +264,5 @@ predDf.to_csv('titanic_pred.csv', index=False)
 结果为:  
 ![image](https://github.com/slackliu/data_analysis/blob/master/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E9%A1%B9%E7%9B%AE/kaggle/%E6%B3%B0%E5%9D%A6%E5%B0%BC%E5%85%8B%E5%8F%B7%E9%A2%84%E6%B5%8B/images/%E7%BB%93%E6%9E%9C.png)
 
+## 2019年11月28日 下午4:23完成项目并提交,
+第一次排名:6305
