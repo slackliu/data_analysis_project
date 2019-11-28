@@ -148,7 +148,8 @@ select count(*) from Titanic where age is null;
     5. 不同船舱的幸存率不同
     6. 登船港口为c的乘客幸存率高
     7. 不同title与幸存率之间的关系
-    8. 未成年幸存率高于成年人
+    8. 未成年幸存率高于成年人  
+    9. 票价Price与幸存率之间的关系  
 * 船舱等级Pclass对生存情况的影响  
 Pclass分为三种,分别为1, 2, 3.
 ![image](https://github.com/slackliu/data_analysis/blob/master/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E9%A1%B9%E7%9B%AE/kaggle/%E6%B3%B0%E5%9D%A6%E5%B0%BC%E5%85%8B%E5%8F%B7%E9%A2%84%E6%B5%8B/images/Pclass%E5%AD%98%E6%B4%BB%E6%83%85%E5%86%B5.png)
@@ -175,3 +176,9 @@ C港口幸存率较高
 * 是否成年与幸存率之间的关系
 ![image](https://github.com/slackliu/data_analysis/blob/master/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E9%A1%B9%E7%9B%AE/kaggle/%E6%B3%B0%E5%9D%A6%E5%B0%BC%E5%85%8B%E5%8F%B7%E9%A2%84%E6%B5%8B/images/%E6%98%AF%E5%90%A6%E6%88%90%E5%B9%B4%E5%AD%98%E6%B4%BB%E6%83%85%E5%86%B5.png)
 无明显区别.
+* 票价Price与幸存率之间的关系    
+票价低于100的被分为low,100-300的称为middle,高于300的称为high
+![image](https://github.com/slackliu/data_analysis/blob/master/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E9%A1%B9%E7%9B%AE/kaggle/%E6%B3%B0%E5%9D%A6%E5%B0%BC%E5%85%8B%E5%8F%B7%E9%A2%84%E6%B5%8B/images/Price%E7%9A%84%E5%AD%98%E6%B4%BB%E6%83%85%E5%86%B5.png)
+票价越高幸存率越高,甚至高于300的幸存率为100%.  
+
+
