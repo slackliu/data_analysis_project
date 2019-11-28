@@ -190,31 +190,31 @@ import pandas as pd
 import warnings
 warnings.filterwarnings('ignore')
 df = pd.read_csv(r"C:\Users\admin\Desktop\titanic_1.csv")
-corrdf = df.corr()
-```
-由于是预测生存情况，因此根据各个特征与生存情况（Survived）的相关系数大小，选择特征进行模型构建。
+corrdf = df.corr()  
+```  
+由于是预测生存情况，因此根据各个特征与生存情况（Survived）的相关系数大小，选择特征进行模型构建。  
 
 ``` python
 #查看各个特征与生存情况（Survived）的相关系数，并降序排列
 corrDf['Survived'].sort_values(ascending=False)
-```
+```  
 结果为:  
-![image](https://github.com/slackliu/data_analysis/blob/master/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E9%A1%B9%E7%9B%AE/kaggle/%E6%B3%B0%E5%9D%A6%E5%B0%BC%E5%85%8B%E5%8F%B7%E9%A2%84%E6%B5%8B/images/%E5%BD%B1%E5%93%8D%E5%9B%A0%E5%AD%90.png)
-根据各个特征与生存情况（Survived）的相关系数大小，选择以下某些特征作为模型的输入:  
-头衔,性别,票价,船舱等级,SibSp,Parch等
+![image](https://github.com/slackliu/data_analysis/blob/master/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E9%A1%B9%E7%9B%AE/kaggle/%E6%B3%B0%E5%9D%A6%E5%B0%BC%E5%85%8B%E5%8F%B7%E9%A2%84%E6%B5%8B/images/%E5%BD%B1%E5%93%8D%E5%9B%A0%E5%AD%90.png)  
+根据各个特征与生存情况（Survived）的相关系数大小，选择以下某些特征作为模型的输入:    
+头衔,性别,票价,船舱等级,SibSp,Parch等    
 ``` python
 #特征选择  
 df_x = pd.concat([df['Pclass'],df['adult'],  df['younger'],  df['Price_middle'], df['Price_high'],  df['Price_low'], df['male'],  df['female'],  df['SibSp'], df['Embarked_C'], df['Embarked_Q'], df['Embarked_S'], df['Fare'], df['Cabin_B'], df['Cabin_D'], df['Cabin_E'], df['Cabin_C'], df['Cabin_F'], df['Cabin_A'], df['Cabin_G'], df[' Mrs'], df[' Miss'], df[' Master'], df['Mr']], axis=1)
 #查看特征
 print(df_x.head())  
-```
-![image](https://github.com/slackliu/data_analysis/blob/master/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E9%A1%B9%E7%9B%AE/kaggle/%E6%B3%B0%E5%9D%A6%E5%B0%BC%E5%85%8B%E5%8F%B7%E9%A2%84%E6%B5%8B/images/%E7%89%B9%E5%BE%81%E5%9B%BE%E7%89%87.png)
+```  
+![image](https://github.com/slackliu/data_analysis/blob/master/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E9%A1%B9%E7%9B%AE/kaggle/%E6%B3%B0%E5%9D%A6%E5%B0%BC%E5%85%8B%E5%8F%B7%E9%A2%84%E6%B5%8B/images/%E7%89%B9%E5%BE%81%E5%9B%BE%E7%89%87.png)  
 
-泰坦尼克号测试数据集因为是最后要提交到kaggle的，里面没有生存情况的值，因此不能用于模型评估
-将kaggle泰坦尼克号项目中的测试数据叫做预测数据集（记为pred）
-即使用机器学习模型来对其生存情况进行预测
-使用kaggle泰坦尼克号项目给的训练数据集，作为原始数据集（记为source）
-从这个原始数据集中拆分出训练数据集（记为train，用于模型训练）和测试数据集（记为test，用于模型评估）
+泰坦尼克号测试数据集因为是最后要提交到kaggle的，里面没有生存情况的值，因此不能用于模型评估  
+将kaggle泰坦尼克号项目中的测试数据叫做预测数据集（记为pred）  
+即使用机器学习模型来对其生存情况进行预测  
+使用kaggle泰坦尼克号项目给的训练数据集，作为原始数据集（记为source）  
+从这个原始数据集中拆分出训练数据集（记为train，用于模型训练）和测试数据集（记为test，用于模型评估）  
 ``` python
 #在合并数据前就知道，原始数据集共有891行
 sourcerow = 891
@@ -264,6 +264,6 @@ print(predDf.head())
 
 predDf.to_csv('titanic_pred.csv', index=False)
 ```
-结果为:
+结果为:  
 ![image](https://github.com/slackliu/data_analysis/blob/master/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E9%A1%B9%E7%9B%AE/kaggle/%E6%B3%B0%E5%9D%A6%E5%B0%BC%E5%85%8B%E5%8F%B7%E9%A2%84%E6%B5%8B/images/%E7%BB%93%E6%9E%9C.png)
 
