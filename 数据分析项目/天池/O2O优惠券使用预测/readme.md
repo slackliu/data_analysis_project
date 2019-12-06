@@ -6,7 +6,9 @@
   
 ### 字段表  
 
-- 表1:用户线下消费和优惠券领取行为  
+- 表1:ccf_offline_stage1_train.csv  
+用户线下消费和优惠券领取行为  
+
 
 Field  | Description
 --------- | --------|
@@ -18,7 +20,8 @@ Distance  | user经常活动的地点离该merchant的最近门店距离是x*500
 Date_received  | 领取优惠券日期 |
 Date  | 消费日期：如果Date=null & Coupon_id != null，该记录表示领取优惠券但没有使用，即负样本；如果Date!=null & Coupon_id = null，则表示普通消费日期；如果Date!=null & Coupon_id != null，则表示用优惠券消费日期，即正样本； |
 
-  - 表2:用户线上点击/消费和优惠券领取行为
+  - 表2:ccf_online_stage1_train.csv  
+  用户线上点击/消费和优惠券领取行为
 
 Field  | Description
 --------- | --------|
