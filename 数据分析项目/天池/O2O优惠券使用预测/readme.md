@@ -30,7 +30,8 @@ Discount_rate  | 优惠率：x \in [0,1]代表折扣率；x:y表示满x减y；�
 Date_received  | 领取优惠券日期 |
 Date  | 消费日期：如果Date=null & Coupon_id != null，该记录表示领取优惠券但没有使用；如果Date!=null & Coupon_id = null，则表示普通消费日期；如果Date!=null & Coupon_id != null，则表示用优惠券消费日期； |
 
-- 表3.ccf_offline_stage1_test_revised.csv:用户O2O线下优惠券使用预测样本.
+- 表3.ccf_offline_stage1_test_revised.csv  
+:用户O2O线下优惠券使用预测样本.
 
 Field  | Description
 --------- | --------|
@@ -41,7 +42,8 @@ Discount_rate  | 优惠率：x \in [0,1]代表折扣率；x:y表示满x减y。|
 Distance  | user经常活动的地点离该merchant的最近门店距离是x*500米（如果是连锁店，则取最近的一家门店），x\in[0,10]；null表示无此信息，0表示低于500米，10表示大于5公里； |
 Date_received  | 领取优惠券日期 |
 
-  - 表4__sample_submission.csv:选手提交文件字段，其中user_id,coupon_id和date_received均来自Table 3,而Probability为预测值
+  - 表4 sample_submission.csv  
+  选手提交文件字段，其中user_id,coupon_id和date_received均来自Table 3,而Probability为预测值
 
 Field  | Description
 --------- | --------|
