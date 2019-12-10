@@ -6,8 +6,8 @@
 
 ### 理解数据
 
-字段名  | 数据类型  |  字段描述
---------- | --------|
+字段名  | 数据类型  | 字段描述|
+--------- | --------| --------|
 User_id  | 用户ID |
 Merchant_id  | 商户ID |
 Coupon_id  | 优惠券ID：null表示无优惠券消费，此时Discount_rate和Date_received字段无意义 |
