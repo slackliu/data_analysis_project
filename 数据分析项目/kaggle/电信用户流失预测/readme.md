@@ -17,31 +17,16 @@ tenure | Integer| 职位|
 PhoneService | String| 电话服务|
 MultipleLines | String| 多线|
 InternetService | String| 互联网服务|
---------- | -------- | --------|
---------- | -------- | --------|
-
-
-
-
-
+OnlineSecurity | String | 在线安全 |
+OnlineBackup | String | 在线备份 |
+DeviceProtection | String | 设备保护 |
+TechSupport | String | 技术支持 |
+StreamingTV | String | -------- |
+Contract | String | 合同 |
+PaperlessBilling | String | 账单 |
+PaymentMethod | String | 付款方式 |
+MonthlyCharges | Integer | 月费用 |
+TotalCharges | Integer | 总费用 |
+Churn | String | 流失 |
 		
-1			
-2			
-3			
-4			
-5			
-6			
-7			
-8			
-9			
-10	OnlineSecurity	String	在线安全
-11	OnlineBackup	String	在线备份
-12	DeviceProtection	String	设备保护
-13	TechSupport	String	技术支持
-14	StreamingTV	String	
-15	Contract	String	合同
-16	PaperlessBilling	String	账单
-17	PaymentMethod	String	付款方式
-18	MonthlyCharges	Integer	月费用
-19	TotalCharges	Integer	总费用
-20	Churn	String	流失
+		
