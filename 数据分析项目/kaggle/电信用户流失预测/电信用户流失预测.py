@@ -3,11 +3,14 @@ import numpy as np
 import pandas as pd
 from datetime import datetime
 import os
+
+from catboost import CatBoostClassifier
 from pylab import rcParams
 import seaborn as sns
 import matplotlib.cm as cm
 import sklearn
 from sklearn import preprocessing
+from sklearn.metrics import recall_score, precision_score
 from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import StratifiedShuffleSplit
@@ -15,13 +18,21 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC, LinearSVC
 from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.naive_bayes import GaussianNB
+from sklearn.tree import DecisionTreeClassifier
+from xgboost import XGBClassifier
+from catboost import CatBoostClassifier
 from sklearn.ensemble import AdaBoostClassifier
+from sklearn.ensemble import GradientBoostingClassifier
 
 
 # 导入数据
+
+
+
 def data_source():
-    source_Path = 'D:\\下载'
-    # source_Path = 'D:\\Download'
+    # source_Path = 'D:\\下载'
+    source_Path = 'D:\\Download'
     telco_file = os.path.join(source_Path, 'WA_Fn-UseC_-Telco-Customer-Churn.csv')
     telco_data = pd.read_csv(telco_file)
     return telco_data
@@ -64,9 +75,9 @@ def process_data(dataset):
 
     # 将TotalCharges数据类型转换为数值型float64
     # dataset['TotalCharges'] = dataset['TotalCharges'].apply(pd.to_numeric, errors='ignore')
-    dataset['TotalCharges'] = pd.to_numeric(dataset['TotalCharges'])
+    # dataset['TotalCharges'] = pd.to_numeric(dataset['TotalCharges'])
     # dataset['TotalCharges'] = np.array(dataset['TotalCharges'])
-    # dataset['TotalCharges'] = dataset['TotalCharges'].convert_objects(convert_numeric=True)         # 将其强行转化为数值型
+    dataset['TotalCharges'] = dataset['TotalCharges'].convert_objects(convert_numeric=True)         # 将其强行转化为数值型
 
     # 查看是否转换成功
     print('转换后的数据类型:')
@@ -143,6 +154,7 @@ def subplot(dataset):
     plt.show()
 
 
+# 画热地图
 def heatmap(dataset):
     # 提取特征
     charges = dataset.iloc[:, 1:20]
@@ -162,6 +174,7 @@ def heatmap(dataset):
 
 
 def dummies(dataset):
+    # 画相关性
     # 参考: https://blog.csdn.net/gdh756462786/article/details/79161525
     #       https://blog.csdn.net/weixin_39750084/article/details/81432619
 
@@ -231,26 +244,103 @@ def boxplot(dataset):
     # 查看对象类型字段中存在的值
     telcomobject = datasetvar.select_dtypes(['object'])
     for i in range(0, len(telcomobject.columns)):
-        print(telcomobject.columns[i], '--->', dataset[telcomobject.columns[i]].unique())
+        print(telcomobject.columns[i], '--->', datasetvar[telcomobject.columns[i]].unique())
     print('---------1----------------')
     # 替换值
     datasetvar.replace(to_replace='No internet service', value='No', inplace=True)
     datasetvar.replace(to_replace='No phone service', value='No', inplace=True)
     for i in range(0, len(telcomobject.columns)):
-        print(telcomobject.columns[i], '--->', dataset[telcomobject.columns[i]].unique())
+        print(telcomobject.columns[i], '--->', datasetvar[telcomobject.columns[i]].unique())
     print('---------2------------------')
     # 使用Scikit-learn 标签编码, 将分类数据转换为整数编码
     for i in range(0, len(telcomobject.columns)):
         datasetvar[telcomobject.columns[i]] = LabelEncoder().fit_transform(datasetvar[telcomobject.columns[i]])
     for i in range(0, len(telcomobject.columns)):
-        print(telcomobject.columns[i], '--->', dataset[telcomobject.columns[i]].unique())
+        print(telcomobject.columns[i], '--->', datasetvar[telcomobject.columns[i]].unique())
     print('----------------3------------------')
+    return datasetvar, telcom_id
+
+
+def train_model(datasetvar, dataset):
+    x = datasetvar
+    y = dataset['Churn'].values
+    sss = StratifiedShuffleSplit(n_splits=5, test_size=0.2, random_state=0)
+    print(sss)
+    print('训练数据和测试数据被分成的组数:', sss.get_n_splits(x, y))
+
+    # 建立训练数据和测试数据
+    for train_index, test_index in sss.split(x, y):
+        print('train:', train_index, 'test:', test_index)
+        x_train, x_test = x.iloc[train_index], x.iloc[test_index]
+        y_train, y_test = y.iloc[train_index], y.iloc[test_index]
+
+        print('原始数据特征:', x.shape,
+              '训练数据特征:', x_train.shape,
+              '测试数据特征:', x_test.shape)
+
+        print('原始数据特征:', y.shape,
+              '训练数据特征:', y_train.shape,
+              '测试数据特征:', y_test.shape)
+
+
+    # 使用分类算法, 这里选用10中分类算法
+    Classifier = [['Random Forest', RandomForestClassifier()],
+                  ['Support Vector Machine', SVC()],
+                  ['LogisticRegression', LogisticRegression()],
+                  ['KNN', KNeighborsClassifier(n_neighbors=5)],
+                  ['Navie Bayes', GaussianNB()],
+                  ['Decision Tree', DecisionTreeClassifier()],
+                  ['AdaBosstClassifier', AdaBoostClassifier()],
+                  ['GradientBoostingClassifier', GradientBoostingClassifier()],
+                  ['XGB', XGBClassifier()],
+                  ['CatBoost', CatBoostClassifier(logging_level='silcat')]]
+
+    # 训练模型
+    Classify_result = []
+    names = []
+    prediction = []
+    for name, classifier in Classifier:
+        classifier = classifier
+        classifier.fit(x_train, y_train)
+        y_pred = classifier.predict(x_test)
+        recall = recall_score(y_test, y_pred)
+        precision = precision_score(y_test, y_pred)
+        class_eva = pd.DataFrame([recall, precision])
+        Classify_result.append(class_eva)
+        name = pd.Series(name)
+        names.append(name)
+        y_pred = pd.Series(y_pred)
+        prediction.append(y_pred)
+
+    # 训练模型
+    names = pd.DataFrame(names)
+    names = names[0].tolist()
+    result = pd.concat(Classify_result, axis=1)
+    result.columns = names
+    result.index = ['recall', 'precision', 'f1score']
+    print(result)
+
+    # 实施方案
+    pred_x = datasetvar.tail(10)
+
+    # 提取customerID
+    pred_id = telcom_id.tail(10)
+
+    # 使用朴素贝叶斯方法, 对预测数据集中的生存情况进行预测
+    model = GaussianNB()
+    model.fit(x_train, y_train)
+    pred_y = model.predict(pred_x)
+
+    # 预测结果
+    predDf = pd.DataFrame({'customerID':pred_id, 'Churn':pred_y})
+    print(predDf)
 
 
 if __name__ == '__main__':
     start = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     print(start)
     #  查询本机的cpu数量
+
     cpu_jobs = os.cpu_count() - 1
     date_null = pd.to_datetime('1970-01-01', format='%Y-%m-%d')
     # 设置显示行列数参数，参考链接： https://www.cnblogs.com/yesuuu/p/6100714.html
@@ -263,10 +353,10 @@ if __name__ == '__main__':
     plt_pie(processed_data)
     subplot(processed_data)
     heatmap(processed_data)
-    # dummies(processed_data)
-    # countplot(processed_data)
-    # contract(processed_data)
-    # paymethod(processed_data)
-    # boxplot(processed_data)
+    dummies(processed_data)
+    countplot(processed_data)
+    contract(processed_data)
+    paymethod(processed_data)
+    boxplot(processed_data)
 
 
