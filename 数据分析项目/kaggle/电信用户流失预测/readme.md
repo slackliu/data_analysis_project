@@ -22,6 +22,7 @@ OnlineBackup | String | 在线备份 |
 DeviceProtection | String | 设备保护 |
 TechSupport | String | 技术支持 |
 StreamingTV | String | -------- |
+StreamingMovies | String | -------- |
 Contract | String | 合同 |
 PaperlessBilling | String | 账单 |
 PaymentMethod | String | 付款方式 |
