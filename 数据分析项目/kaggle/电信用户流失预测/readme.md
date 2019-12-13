@@ -31,8 +31,11 @@ TotalCharges | Integer | 总费用 |
 Churn | String | 流失 |
 		
 ### 三、数据清洗
-#### 1.缺失值处理
-转换数据类型过程中遇到object转为float不成功的问题，因为数据中含有空格，to_numeric发生错误，convert——numeric却不在支持
+#### 0. 导入数据
+导入数据函数为:data_source()  
+注意数据文件路径.  
+#### 1. 缺失值处理
+转换数据类型过程中遇到object转为float不成功的问题，因为数据中含有空格，to_numeric不能讲空格转换，convert_numeric却不再支持,
 #### 2. 异常值处理
 无异常值
 #### 3. 格式一致化处理
