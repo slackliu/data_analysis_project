@@ -73,6 +73,9 @@ Churn | String | 流失 |
 ![image](https://github.com/slackliu/data_analysis/blob/master/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E9%A1%B9%E7%9B%AE/kaggle/%E7%94%B5%E4%BF%A1%E7%94%A8%E6%88%B7%E6%B5%81%E5%A4%B1%E9%A2%84%E6%B5%8B/iamges/%E4%BB%98%E6%AC%BE%E6%96%B9%E5%BC%8F%E5%AF%B9%E5%AE%A2%E6%88%B7%E6%B5%81%E5%A4%B1%E7%8E%87%E7%9A%84%E5%BD%B1%E5%93%8D.png)
 - 由图上可以看出，在四种支付方式中，使用Electronic check的用户流流失率最高，其他三种支付方式基本持平，因此可以推断电子账单在设计上影响用户体验。
 
+#### 8. 查看是否存在异常值
+![image](https://github.com/slackliu/data_analysis/blob/master/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E9%A1%B9%E7%9B%AE/kaggle/%E7%94%B5%E4%BF%A1%E7%94%A8%E6%88%B7%E6%B5%81%E5%A4%B1%E9%A2%84%E6%B5%8B/iamges/%E5%90%A6%E5%AD%98%E5%9C%A8%E5%BC%82%E5%B8%B8%E5%80%BC.png)
+- 不存在明显异常值
 
 ### 五、建立模型
-#### 
+#### 1. 
