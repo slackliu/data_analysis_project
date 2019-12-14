@@ -3,8 +3,9 @@
 1. 通过测验需要几次尝试
 
 ### 二、理解数据
-|  event_id |  随机生成的事件类型的唯一标识符。映射到event_id规格表中的列。 |
+|  Field |  Description |
 |  -------|  ------- |
+|  event_id |  随机生成的事件类型的唯一标识符。映射到event_id规格表中的列。 |
 |  game_session | 在单个游戏或视频播放会话中随机生成的唯一标识符分组事件。
 |timestamp | 客户生成的日期时间
 |event_data |包含事件参数的半结构化JSON格式的字符串。默认字段是：event_count，event_code，和game_time; 否则，字段由事件类型确定。
