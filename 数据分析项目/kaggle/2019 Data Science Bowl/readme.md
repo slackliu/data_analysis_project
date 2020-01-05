@@ -22,10 +22,7 @@ specs数据集：
 |  -------|  ------- |
 |  event_id |  随机生成的事件类型的唯一标识符。加入event_id事件表中的列。 |
 |  info | 事件说明。
-|args | 事件参数的JSON格式字符串。每个参数包含：
-name -参数名称。
-type-参数的类型（string，int，number，object，array）。
-info -参数的说明。
+|args | 事件参数的JSON格式字符串。每个参数包含：name -参数名称。type-参数的类型（string，int，number，object，array）。info -参数的说明。
 
 
 
