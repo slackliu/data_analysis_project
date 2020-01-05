@@ -4,6 +4,7 @@
 
 ### 二、理解数据
 train数据集和test数据集：  
+
 |  Field |  Description |
 |  -------|  ------- |
 |  event_id |  随机生成的事件类型的唯一标识符。映射到event_id规格表中的列。 |
@@ -17,7 +18,9 @@ train数据集和test数据集：
 |title  | 游戏或视频的标题。
 |type | 游戏或视频的媒体类型。可能的值为：“游戏”，“评估”，“活动”，“剪辑”。
 |world | 游戏或视频所属的应用程序部分。有助于确定媒体的教育课程目标。可能的值为：“ NONE”（在应用程序的开始屏幕上），“ REEPOTPCITY”（长度/高度），“ |MAGMAPEAK”（容量/排量），“ CRYSTALCAVES”（重量）。  
+
 specs数据集：  
+
 |  Field |  Description |
 |  -------|  ------- |
 |  event_id |  随机生成的事件类型的唯一标识符。加入event_id事件表中的列。 |
