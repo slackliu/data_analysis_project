@@ -100,39 +100,39 @@ M——Money（消费金额）
 对4330名有购买行为的用户按照排名进行分组，共计划分为4组，对排在前四分之一的用户打4分，前二分之一的用户打3分，排在前四分之三的用户打2分，剩余的用户打1分，按照这个规则分别对用户时间间隔排名打分和购买频率排名打分，最后把两个分数合并在一起作为该名用户的最终评分。    
 计算脚本如下：   
 '''
-SELECT r.user_id,r.recent,r.recent_rank,f.frequency,f.freq_rank,
-CONCAT(  --  对客户购买行为的日期排名和频率排名进行打分
-CASE WHEN r.recent_rank <= (4330/4) THEN '4'
-WHEN r.recent_rank > (4330/4) AND r.recent_rank <= (4330/2) THEN '3'
-WHEN r.recent_rank > (4330/2) AND r.recent_rank <= (4330/43) THEN '2'
-ELSE '1' END,
-CASE WHEN f.freq_rank <= (4330/4) THEN '4'
-WHEN f.freq_rank > (4330/4) AND f.freq_rank <= (4330/2) THEN '3'
-WHEN f.freq_rank > (4330/2) AND f.freq_rank <= (4330/43) THEN '2'
-ELSE '1' END
-) AS user_value
-FROM
---  对每位用户最近发生购买行为的间隔时间进行排名（间隔天数越少，客户价值越大）
-(SELECT a.,(@rank := @rank + 1) AS recent_rank
-FROM  --  统计客户最近发生购买行为的日期距离'2014-12-19'间隔几天
-(SELECT user_id,DATEDIFF('2014-12-19',MAX(date)) AS recent
-FROM user
-WHERE behavior_type = 'buy'
-GROUP BY user_id
-ORDER BY recent) AS a,
-(SELECT @rank := 0) AS b)
-AS r,
--- 对每位用户的购买频率进行排名（频率越大，客户价值越大）
-(SELECT a.,(@rank2 := @rank2 + 1) AS freq_rank
-FROM   --  统计每位用户的购买频率
-(SELECT user_id,COUNT(behavior_type) AS frequency
-FROM user
-WHERE behavior_type = 'buy'
-GROUP BY user_id
-ORDER BY frequency DESC) AS a,
-(SELECT @rank2 := 0) AS b)
-AS f
-WHERE r.user_id = f.user_id;
+SELECT r.user_id,r.recent,r.recent_rank,f.frequency,f.freq_rank,   
+CONCAT(  --  对客户购买行为的日期排名和频率排名进行打分  
+CASE WHEN r.recent_rank <= (4330/4) THEN '4'  
+WHEN r.recent_rank > (4330/4) AND r.recent_rank <= (4330/2) THEN '3'  
+WHEN r.recent_rank > (4330/2) AND r.recent_rank <= (4330/43) THEN '2'  
+ELSE '1' END,  
+CASE WHEN f.freq_rank <= (4330/4) THEN '4'  
+WHEN f.freq_rank > (4330/4) AND f.freq_rank <= (4330/2) THEN '3'  
+WHEN f.freq_rank > (4330/2) AND f.freq_rank <= (4330/43) THEN '2'  
+ELSE '1' END  
+) AS user_value  
+FROM  
+--  对每位用户最近发生购买行为的间隔时间进行排名（间隔天数越少，客户价值越大）  
+(SELECT a.,(@rank := @rank + 1) AS recent_rank  
+FROM  --  统计客户最近发生购买行为的日期距离'2014-12-19'间隔几天  
+(SELECT user_id,DATEDIFF('2014-12-19',MAX(date)) AS recent  
+FROM user  
+WHERE behavior_type = 'buy'  
+GROUP BY user_id  
+ORDER BY recent) AS a,  
+(SELECT @rank := 0) AS b)  
+AS r,  
+-- 对每位用户的购买频率进行排名（频率越大，客户价值越大）  
+(SELECT a.,(@rank2 := @rank2 + 1) AS freq_rank  
+FROM   --  统计每位用户的购买频率  
+(SELECT user_id,COUNT(behavior_type) AS frequency  
+FROM user  
+WHERE behavior_type = 'buy'  
+GROUP BY user_id  
+ORDER BY frequency DESC) AS a,  
+(SELECT @rank2 := 0) AS b)  
+AS f  
+WHERE r.user_id = f.user_id;  
 '''
 
 ![image](https://github.com/slackliu/data_analysis/blob/master/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E9%A1%B9%E7%9B%AE/%E5%BC%80%E8%AF%BE%E5%90%A7/%E6%B7%98%E5%AE%9D%E7%94%A8%E6%88%B7%E5%88%86%E6%9E%90/images/24.jpg)  
