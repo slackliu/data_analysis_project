@@ -11,7 +11,7 @@
 ----- | -----| ------| ----|
 user_id | Int | 用户唯一标识 | 666|
 register_day | String | 日期 | 01, 02 ..  30|
-register_type | Int | 来源渠道（脱敏后 | 0|
+register_type | Int | 来源渠道（脱敏后） | 0|
 device type | Int | 设备类型（脱敏后） | 0|
 
 ### 2.APP 启动日志（app_launch_log.txt）
