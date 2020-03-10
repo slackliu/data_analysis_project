@@ -11,7 +11,7 @@ pd.set_option('display.max_rows', 200)  # 显示200行
 pd.set_option('display.max_columns', 200)  # 显示200列
 
 # 读取数据
-data = pd.read_csv('D:\下载\python_book_v2\chapter4\cluster.txt')
+data = pd.read_csv('cluster.txt')
 print(data.head())
 # 平均订单数和平均消费金额属于数值型特征
 numeric_features = data.iloc[:, 1:3]
